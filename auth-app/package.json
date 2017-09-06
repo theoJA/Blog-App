@@ -7,9 +7,6 @@
   "author": "Theophilus JA",
   "license": "ISC",
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13",
     "express": "*",
     "mongoose": "*",
     "bcryptjs": "*",
@@ -20,10 +17,7 @@
     "passport-jwt": "*"
   },
   "scripts": {
-    "start": "node app",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node app"
   },
   "devDependencies": {
     "nodemon": "^1.11.1"
