@@ -17,7 +17,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 const users = require('./routes/users');
-const port = 3000;
+const port = 3300;
 
 // CORS Middleware
 app.use(cors());
@@ -27,6 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
 app.use(bodyParser.json());
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 app.use('/users', users);
 
