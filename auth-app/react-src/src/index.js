@@ -19,6 +19,7 @@ import reducers from './reducers';
 import PostsIndex from './components/posts_index'
 import PostsNew from './components/posts_new'
 import PostsShow from './components/posts_show'
+import PostsAuth from './components/posts_auth'
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -32,10 +33,11 @@ ReactDOM.render(
         <Switch>
           <Route path="/posts/new" component={PostsNew} />
           <Route path="/posts/:id" component={PostsShow} />
-          <Route path="/" component={PostsIndex} />
+          <Route path="/posts" component={PostsIndex} />
+          <Route path="/" component={PostsAuth} />
         </Switch>
       </div>
     </BrowserRouter>
   </Provider>
-  , document.querySelector('.container'));
+  , document.getElementById('root'));
   registerServiceWorker();
