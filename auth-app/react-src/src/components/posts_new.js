@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Navbar } from '../components/common'
 import './posts_new.css'
 import { createPost } from '../actions'
 
@@ -15,7 +16,7 @@ class PostsNew extends Component {
     // es6 destructuring
     // this is a nice way to simplify field.meta.touched or field.meta.error 
 
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`
+    const className = `form-group ${touched && error ? 'has-error' : ''}`
 
     return (
       <div className={className}>
@@ -29,7 +30,7 @@ class PostsNew extends Component {
           // ... is for making all the diff props in field.input to be 
           //  communicated as props for the input tag. just fancy JSX
         />
-        <div className="text-help">
+        <div className="control-label" for="inputError">
           {touched ? error : ''}
         </div>
       </div>
@@ -38,7 +39,7 @@ class PostsNew extends Component {
 
   onSubmit(values) {
     this.props.createPost(values, () => {
-      this.props.history.push('/') // this takes us back to the specified route
+      this.props.history.push('/posts') // this takes us back to the specified route
     })
   }
 
@@ -48,25 +49,30 @@ class PostsNew extends Component {
     //  on behalf of redux-form
 
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field 
-          label="Title" //the prop, "label" can be given any name
-          name="title"
-          component={this.renderField}
-        />
-        <Field 
-          label="Categories"
-          name="categories"
-          component={this.renderField}
-        />
-        <Field 
-          label="Post Content"
-          name="content"
-          component={this.renderField}
-        />
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <Link to="/" className="btn btn-danger">Cancel</Link>
-      </form>
+      <div>
+        <Navbar navbarTitle="MERN Auth App"/>
+        <div className="container">
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <Field 
+              label="Title" //the prop, "label" can be given any name
+              name="title"
+              component={this.renderField}
+            />
+            <Field 
+              label="Categories"
+              name="categories"
+              component={this.renderField}
+            />
+            <Field 
+              label="Post Content"
+              name="content"
+              component={this.renderField}
+            />
+            <button type="submit" className="btn btn-primary">Submit</button>
+            <Link to="/posts" className="btn btn-danger">Cancel</Link>
+          </form>
+        </div>
+      </div>
     )
   }
 }
