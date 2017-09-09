@@ -30,7 +30,7 @@ class PostsNew extends Component {
           // ... is for making all the diff props in field.input to be 
           //  communicated as props for the input tag. just fancy JSX
         />
-        <div className="control-label" for="inputError">
+        <div className="control-label" htmlFor="inputError">
           {touched ? error : ''}
         </div>
       </div>
@@ -50,7 +50,7 @@ class PostsNew extends Component {
 
     return (
       <div>
-        <Navbar navbarTitle="MERN Auth App"/>
+        <Navbar />
         <div className="container">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field 

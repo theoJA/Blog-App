@@ -29,8 +29,7 @@ class PostsIndex extends Component {
   render(){
     return(
       <div>
-
-        <Navbar navbarTitle="MERN Auth App"/>
+        <Navbar />
         <div className="container">
           <div className="pull-right">
             <Link className="btn btn-primary" to="/posts/new">
@@ -39,13 +38,12 @@ class PostsIndex extends Component {
           </div>
 
           <div>
-            <h3>Posts</h3>
+            <h3>Your Posts</h3>
             <ul className="list-group">
               {this.renderPosts()}
             </ul>
           </div>
         </div>
-
       </div>
     )
   }

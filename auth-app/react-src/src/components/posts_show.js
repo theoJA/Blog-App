@@ -27,7 +27,7 @@ class PostsShow extends Component {
 
     return (
       <div>
-        <Navbar navbarTitle="MERN Auth App"/>
+        <Navbar />
         <div className="container">
           <Link to="/posts">Back To Index</Link>
           <button
