@@ -1,0 +1,17 @@
+.absoluteCenter {
+  width: 70%;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
+}
+
+img {
+  max-width: 144px;
+  max-height: 67px;
+  width: auto;
+  height: auto;
+}
+
