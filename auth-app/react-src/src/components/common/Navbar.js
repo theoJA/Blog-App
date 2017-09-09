@@ -22,7 +22,7 @@ const Navbar = () => {
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/posts">Dashboard</Link></li>
               <li><Link to="#">Profile</Link></li>
-              <li><Link to="#">Logout</Link></li>
+              <li><Link to="/">Logout</Link></li>
             </ul>
           </div>
         </div>
