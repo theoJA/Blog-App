@@ -1,6 +1,6 @@
 .absoluteCenter {
   width: 70%;
-  height: 50%;
+  height: 70%;
   overflow: auto;
   margin: auto;
   position: absolute;
@@ -15,3 +15,9 @@ img {
   height: auto;
 }
 
+.spacing {
+  margin-right: 10px;
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
