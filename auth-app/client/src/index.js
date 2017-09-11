@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import promise from 'redux-promise'
+import thunkMiddleware from 'redux-thunk'
 import registerServiceWorker from './registerServiceWorker';
 
 import reducers from './reducers';
@@ -21,7 +22,7 @@ import PostsNew from './components/posts_new'
 import PostsShow from './components/posts_show'
 import PostsAuth from './components/posts_auth'
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, promise)(createStore);
 
 // Inside the Provider tags, we can only have a single
 //  nested children tag at any given time

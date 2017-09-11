@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const TextInput = ({ label, value, onChange, placeholder, id, type }) => {
+const TextInput = ({ label, onBlur, placeholder, id, type }) => {
   return (
     <form className="form-horizontal">
       <fieldset>
@@ -10,8 +10,7 @@ const TextInput = ({ label, value, onChange, placeholder, id, type }) => {
             <div className="col-lg-10">
               <input 
                 className="form-control"
-  
-                onChange={onChange}
+                onBlur={onBlur}
                 placeholder={placeholder}
                 id={id}
                 type={type}

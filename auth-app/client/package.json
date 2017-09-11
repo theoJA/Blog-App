@@ -6,14 +6,18 @@
     "axios": "*",
     "lodash": "*",
     "react": "^15.6.1",
+    "react-alert": "^2.3.0",
+    "react-cookie": "^2.1.0",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13",
+    "react-modal": "^2.3.2",
     "react-redux": "*",
     "react-router": "*",
     "react-router-dom": "*",
+    "react-scripts": "1.0.13",
     "redux": "*",
     "redux-form": "*",
-    "redux-promise": "*"
+    "redux-promise": "*",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
