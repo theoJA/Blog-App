@@ -1,36 +1,22 @@
 import axios from 'axios'
 import cookie from 'react-cookie'
 import {
-  NAME_CHANGED,
   EMAIL_CHANGED,
-  USERNAME_CHANGED,
   PASSWORD_CHANGED,
+  STATE_RESET,
+  REG_USER,
+  REG_ERROR,
   AUTH_USER,  
   AUTH_ERROR,
-  UNAUTH_USER,
-  PROTECTED_TEST
+  UNAUTH_USER
 } from './types.js'
 
 const API_URL = 'http://localhost:3300/users'
 
 
-export function errorHandler(dispatch, error, type) {
-  let errorMessage = '';
-
-  if (error.msg) {
-    errorMessage = error.msg;
-  }
-
-  dispatch({
-    type: type,
-    payload: errorMessage
-  });
-}
-
-
-export const usernameChanged = (text) => {
+export const emailChanged = (text) => {
   return {
-    type: USERNAME_CHANGED,
+    type: EMAIL_CHANGED,
     payload: text
   }
 }
@@ -42,8 +28,29 @@ export const passwordChanged = (text) => {
   }
 }
 
+export const stateReset = () => {
+  return { type: STATE_RESET }
+}
+
+export const signUp = ({ email, password }, callback) => {
+  return (dispatch) => {
+    axios.post(`${API_URL}/signup`, { email, password })
+      .then((response, callback) => {
+        dispatch({ type: REG_USER })
+      })
+      .then(() => callback())
+      .catch((error) => {
+        dispatch({ 
+          type: REG_ERROR, 
+          payload: error.response.data.error
+        })
+      })
+  }
+}
+
+
 // yet to be implemented!!
-export const loginUser = ({ username, password }) => {
+export const signIn = ({ username, password }) => {
   return (dispatch) => {
     axios.post(`${API_URL}/authenticate`, { username, password })
       .then(response => {
@@ -58,7 +65,7 @@ export const loginUser = ({ username, password }) => {
   }
 }
 
-export const logoutUser = () => {
+export const logout = () => {
   return (dispatch) => {
     dispatch({ type: UNAUTH_USER })
     cookie.remove('token', { path: '/' })
