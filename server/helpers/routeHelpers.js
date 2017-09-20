@@ -5,7 +5,8 @@ module.exports = {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema);
       if (result.error) {
-        return res.status(400).json(result.error);
+        console.log("Wrong format")
+        return res.status(400).json({ error: 'Enter a valid email' });
       }
 
       if (!req.value) { req.value = {}; }
