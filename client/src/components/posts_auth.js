@@ -2,9 +2,16 @@ import React, { Component, dispatch } from 'react'
 import { connect } from "react-redux";
 import { Field, reduxForm, reset } from 'redux-form'
 import { Link } from "react-router-dom";
+import AlertContainer from 'react-alert'
 import jotLogo from "../images/jot-transparent.png"
 import { TextInput, Register } from './common'
-import { usernameChanged, passwordChanged, loginUser } from '../actions/AuthActions'
+import { 
+  emailChanged, 
+  passwordChanged,
+  stateReset,
+  signIn, 
+  signUp } from '../actions/AuthActions'
+import alertOptions from './Config/Alert'
 import "./posts_auth.css"
 
 class posts_auth extends Component {
@@ -29,8 +36,8 @@ class posts_auth extends Component {
     )
   }
 
-  onUsernameChange(event) {
-    this.props.usernameChanged(event.target.value)
+  onEmailChange(event) {
+    this.props.emailChanged(event.target.value)
   }
 
   onPasswordChange(event) {
@@ -39,20 +46,33 @@ class posts_auth extends Component {
 
   // handle the action for this!=============================== HERE
   onSignIn() {
-    const { username, password } = this.props
-    this.props.loginUser({ username, password })
+    const { email, password } = this.props
+    this.props.signIn({ email, password })
   }
   
-  onSignUp() {
+
+  // User clicks sign up
+  onClickSignUp() {
     this.setState({ showModal: true })
   }
-  
-  // handle the action for this!=============================== HERE
+  // Signup success alert
+  showAlert = (message, type) => {
+    this.msg.show(message, { type })
+  }
+  // User registers
   onRegister() {
-    this.setState({ showModal: false })
+    const { email, password, error } = this.props
+    this.props.signUp({ email, password }, () => {
+      if (!this.props.error) {
+        this.showAlert("Sign in success", "success")
+        this.setState({ showModal: false })
+      }
+    })
   }
 
+
   onCancel() {
+    this.props.stateReset()
     this.props.reset()
     this.setState({ showModal: false })
   }
@@ -64,10 +84,10 @@ class posts_auth extends Component {
           <img src={jotLogo} />
           <h4>Write your thoughts down, anywhere, anytime.</h4>
           <TextInput 
-            label="Username"
-            onBlur={this.onUsernameChange.bind(this)}
-            placeholder="username"
-            id="authUsername"
+            label="Email"
+            onBlur={this.onEmailChange.bind(this)}
+            placeholder="user@gmail.com"
+            id="authEmail"
             type="text"
           />
           <TextInput 
@@ -78,36 +98,30 @@ class posts_auth extends Component {
             type="password"
           />
           <button className="btn btn-primary spacing" onClick={this.onSignIn.bind(this)}>Sign In</button>
-          <button className="btn btn-success spacing" onClick={this.onSignUp.bind(this)}>Sign Up</button>
-          
+          <button className="btn btn-success spacing" onClick={this.onClickSignUp.bind(this)}>Sign Up</button>
+
           <Register
             visible={this.state.showModal}
           >
             <form onSubmit={this.props.handleSubmit(this.onRegister.bind(this))}>
               <Field
-                label="Name" //the prop, "label" can be given any name
-                name="name"
-                component={this.renderField}
-              />
-              <Field
                 label="Email"
                 name="email"
                 component={this.renderField}
-              />
-              <Field
-                label="Username"
-                name="username"
-                component={this.renderField}
+                onChange={this.onEmailChange.bind(this)}
               />
               <Field
                 label="Password"
                 name="password"
                 component={this.renderField}
+                onChange={this.onPasswordChange.bind(this)}
               />
               <button style={{ marginRight: 20 + "px" }} type="submit" className="btn btn-success">Register</button>
               <button className="btn btn-danger" onClick={this.onCancel.bind(this)}>Cancel</button>
+              <div className="errorText"><text>{this.props.error}</text></div>
             </form>
           </Register>
+          <AlertContainer ref={alert => this.msg = alert} {...alertOptions} />
         </div>
       </div>
     )
@@ -120,14 +134,8 @@ const afterSubmit = (result, dispatch) =>
 function validate(values) {
   const errors = {}
 
-  if (!values.name) {
-    errors.name = "Enter a name!"
-  }
   if (!values.email) {
     errors.email = "Enter an email!"
-  }
-  if (!values.username) {
-    errors.username = "Enter a username!"
   }
   if (!values.password) {
     errors.password = "Enter a password!"
@@ -144,4 +152,10 @@ export default reduxForm({
   validate,
   form: 'RegisterUser',
   onSubmitSuccess: afterSubmit,
-})(connect(mapStateToProps, { usernameChanged, passwordChanged, loginUser } )(posts_auth))
+})(connect(mapStateToProps, { 
+  emailChanged, 
+  passwordChanged,
+  stateReset,
+  signIn, 
+  signUp 
+} )(posts_auth))
