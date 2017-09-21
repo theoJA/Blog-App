@@ -97,8 +97,10 @@ class posts_auth extends Component {
             id="authPassword"
             type="password"
           />
-          <button className="btn btn-primary spacing" onClick={this.onSignIn.bind(this)}>Sign In</button>
-          <button className="btn btn-success spacing" onClick={this.onClickSignUp.bind(this)}>Sign Up</button>
+          <div>
+            <button className="btn btn-primary spacing" onClick={this.onSignIn.bind(this)}>Sign In</button>
+            <button className="btn btn-success spacing" onClick={this.onClickSignUp.bind(this)}>Sign Up</button>
+          </div>
 
           <Register
             visible={this.state.showModal}
